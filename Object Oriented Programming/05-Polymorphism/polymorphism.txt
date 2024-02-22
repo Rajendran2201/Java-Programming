@@ -1,0 +1,283 @@
+----- Polymorphism ------
+	->poly -> many
+	-> morphism ->forms
+
+	->with same name of function different definition will be given 
+type:
+	compile time -> methode overloading
+	run time -> methode overridding
+
+--------- methode overloading ------------
+	->with same function name more function definition available in class
+how its possible?
+	->By changing number of arguments
+	->By changing the data type
+eg:
+class sample{
+void display(){
+System.out.println("---------- NO args -------- ");
+}
+void display(int a){
+System.out.println("---------- one int args ----------");
+System.out.println("a="+a);
+}
+void display(String a){
+System.out.println("---------- one String args ----------");
+System.out.println("a="+a);
+}
+void display(Double a){
+System.out.println("---------- one double args ---------- ");
+System.out.println("a="+a);
+}
+void display(int a,int b){
+System.out.println("---------- Two int args ----------");
+System.out.println("a="+a+"\nb="+b);
+}
+}
+class poly{
+public static void main(String a[]){
+sample s = new sample();
+s.display();
+s.display(1);
+s.display("valar");
+s.display(99.9);
+s.display(1,2);
+}
+}
+
+o/p:
+---------- NO args --------
+---------- one int args ----------
+a=1
+---------- one String args ----------
+a=valar
+---------- one double args ----------
+a=99.9
+---------- Two int args ----------
+a=1
+b=2
+--------- Methode overriding --------------
+	-> in inheritance 
+	->base class and sub class are having same function name but with different o/p
+what happen?
+	it hides base class method and overrids in the sub class method
+eg:	
+class A{
+    void display(){
+        System.out.println("display() in A");
+    }
+}
+class B extends A{
+   void display(){
+        System.out.println("display() in B");
+    }
+}
+class HelloWorld {
+    public static void main(String[] args) {
+      B b = new B();
+      b.display();
+    }
+}
+o/p:
+display() in B
+
+
+-> how to access the hidden base class metho?
+	-> super keyword
+
+eg:
+
+class A{
+    void display(){
+        System.out.println("display() in A");
+    }
+}
+class B extends A{
+   void display(){
+       super.display();
+        System.out.println("display() in B");
+    }
+}
+class HelloWorld {
+    public static void main(String[] args) {
+      B b = new B();
+      b.display();
+  
+    }
+}
+o/p:
+display() in A
+display() in B
+ 
+-------  to prevent the methode overriding	-------
+	->overridden method(base class method) to be final 
+	->so we can define one more definition in sub class but it can access the base class method
+class A{
+    final void display(){
+        System.out.println("display() in A");
+    }
+}
+class B extends A{
+   void display(){
+       super.display();
+        System.out.println("display() in B");
+    }
+}
+class HelloWorld {
+    public static void main(String[] args) {
+      B b = new B();
+      b.display();
+  
+    }
+}
+o/p:
+/tmp/V0ukRY8bBH/HelloWorld.java:9: error: display() in B cannot override display() in A
+   void display(){
+        ^
+overridden method is final
+1 error
+->it can access the base class method
+eg:
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+class A{
+    final void display(){
+        System.out.println("display() in A");
+    }
+}
+class B extends A{
+  void print(){
+       System.out.println("print() in B");
+  }
+}
+class HelloWorld {
+    public static void main(String[] args) {
+      B b = new B();
+      b.display();
+  
+    }
+}
+o/p:
+display() in A
+
+------ task ----- 
+methode overloadig
+1.Define adder class with different addition() using methode oveloading
+2.Find out area of a shape using method overloading..
+define  class Shape and define area() with different shapes to claculate area
+Circle -> radius -> area(double)
+Square -> a -> area(int)
+Traingle -> b,h -> area(int,int)
+--------- Methodevoverridding --------
+1. base -> reservebank ->variable -> balace, getinterest()->2%
+SBI (sub class) -> getinterest() -> 3%
+ICICI(sub class)->getinterest()  -> 4%
+
+- ----- task ----- 
+methode overloadig
+1.Define adder class with different addition() using methode oveloading
+class adder{
+void addition(int a , int b){
+System.out.println(a+b);
+}
+void addition(double a , double b){
+System.out.println(a+b);
+}
+void addition(int a , int b,int c){
+System.out.println(a+b+c);
+}
+void addition(int a , int b,int c ,int d){
+System.out.println(a+b+c+d);
+}
+void addition(double a, double b, double c, double d){
+System.out.println(a+b+c+d);
+}
+}
+class add{
+public static void main(String args[]){
+adder obj= new adder();
+obj.addition(10,20);
+obj.addition(1.1,4.2);
+obj.addition(23,56,4);
+obj.addition(78,9,47,6);
+obj.addition(1.2,2.3,3.4,4.5);
+}}
+Output:
+30
+5.300000000000001
+83
+140
+11.4
+
+2.Find out area of a shape using method overloading..
+class shape{
+
+void area(double a){
+double area=Math.PI*a*a;
+System.out.println(area);
+}
+void area(int a){
+int area=a*a;
+System.out.println(area);
+}
+void area(int a, int b){
+double area=0.5*a*b;
+System.out.println(area);
+}
+}
+class areaofshapes{
+public static void main(String args[]){
+shape obj= new shape();
+obj.area(2.1);
+obj.area(8);
+obj.area(7,8);
+}
+}
+OUTPUT:
+13.854423602330987
+64
+28.0
+
+define  class Shape and define area() with different shapes to claculate area
+Circle -> radius -> area(double)
+Square -> a -> area(int)
+Traingle -> b,h -> area(int,int)
+--------- Methodevoverridding --------
+1. base -> reservebank -> getinterest()->2%
+SBI (sub class) -> getinterest() ->extra 3%
+#include<iostream.h>
+#include<conio.h>
+class ReserveBank{
+public:
+float Reserve_balance,Reserve_interest,Reserve_interestamount;
+ReserveBank(){
+Reserve_balance=1000;
+Reserve_interest=2.0;
+}
+void getInterestRate(){
+Reserve_interestamount=(Reserve_balance*2)/100;
+Reserve_balance=Reserve_balance+Reserve_interestamount;
+}
+
+};
+class SBI : public ReserveBank{
+public:
+float SBI_balance,SBI_interest,SBI_interestamount;
+SBI(){
+SBI_interest=3;
+SBI_balance=1000;
+}
+void getInterestRate(){
+cout<<"\nBefore Interest balance="<<SBI_balance;
+SBI_interestamount=(SBI_balance*(Reserve_interest+SBI_interest))/100;
+SBI_balance=SBI_balance+SBI_interestamount;
+cout<<"\nafter Interest balance="<<SBI_balance;
+}
+};
+void main(){
+clrscr();
+SBI ac1;
+ac1.getInterestRate();
+getch();
+}
+
