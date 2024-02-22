@@ -1,0 +1,388 @@
+----------- interface (abstraction)----------------
+def:
+	->It’s a completely “abstract class”
+	->Also blueprint of class
+	->Used to achieve complete abstraction in java
+	->Also interface can be used to implement multiple inheritance
+	->Cant be instantiated
+	->Interface fields(properties) are public, static and final by default and methods are public and abstract 
+	->If you want to have static method in interface then it should be defined
+	->Java 8  default and static
+	->Java 9 private methods
+
+Why And When To Use Interfaces?
+1) To achieve security - hide certain details and only show the important details of an object (interface).
+2) Java does not support "multiple inheritance" (a class can only inherit from one superclass). However, it can be achieved with interfaces, because the class can implement multiple interfaces. Note: To implement multiple interfaces, separate them with a comma (see example below).
+
+
+Syntax:
+	interface name{
+		methods();
+}
+implements  keyword is used to implement a interface in class
+
+
+----------------- points -------------------
+	->Like abstract classes, interfaces cannot be used to create objects (in the example above, it is not possible to create an "Animal" object in the MyMainClass)
+	->Interface methods do not have a body - the body is provided by the "implement" class
+	->On implementation of an interface, you must override all of its methods
+	->Interface methods are by default abstract and public
+	->Interface attributes are by default public, static and final
+	->An interface cannot contain a constructor (as it cannot be used to create objects)
+with out override  method
+interface sample{
+    int a=10;
+    void display();
+    }
+    class interfaceimpl implements sample{
+    
+    }
+
+class HelloWorld {
+    public static void main(String[] args) {
+interfaceimpl s = new interfaceimpl();
+    }
+}
+ERROR!
+javac /tmp/OKkWVGsfYU/HelloWorld.java
+/tmp/OKkWVGsfYU/HelloWorld.java:5: error: interfaceimpl is not abstract and does not override abstract method display() in sample
+    class interfaceimpl implements sample{
+    ^
+1 error
+
+interface sample{
+    int a=10;
+    void display();
+    }
+    class interfaceimpl implements sample{
+   public void display(){
+       System.out.println("a="+a); 
+    }
+    }
+
+class HelloWorld {
+    public static void main(String[] args) {
+interfaceimpl s = new interfaceimpl();
+s.display();
+    }
+}
+------ cant change the final variable value -----------
+interface sample{
+    int a=10;
+    void display();
+    }
+    class interfaceimpl implements sample{
+   public void display(){
+       System.out.println("a="+a); 
+    }
+    }
+
+class HelloWorld {
+    public static void main(String[] args) {
+interfaceimpl s = new interfaceimpl();
+s.a=20;
+
+    }
+}
+o/p:
+ERROR!
+javac /tmp/OKkWVGsfYU/HelloWorld.java
+/tmp/OKkWVGsfYU/HelloWorld.java:14: error: cannot assign a value to final variable a
+s.a=20;
+ ^
+1 error
+
+------------- cant create object ------------
+interface sample{
+    int a=10;
+    void display();
+    }
+    class interfaceimpl implements sample{
+   public void display(){
+       System.out.println("a="+a); 
+    }
+    }
+
+class HelloWorld {
+    public static void main(String[] args) {
+
+sample s = new sample();
+
+    }
+}
+o/p:
+ERROR!
+javac /tmp/OKkWVGsfYU/HelloWorld.java
+/tmp/OKkWVGsfYU/HelloWorld.java:14: error: sample is abstract; cannot be instantiated
+sample s = new sample();
+           ^
+1 error
+
+------------- accessing methode and fields by interface object -----------
+interface sample{
+    int a=10;
+    void display();
+    }
+    class interfaceimpl implements sample{
+   public void display(){
+       System.out.println("a="+a); 
+    }
+    }
+
+class HelloWorld {
+    public static void main(String[] args) {
+
+sample s = new interfaceimpl();
+s.display();
+
+    }
+}
+o/p:
+a=10
+
+------------------ inheritance in interface --------------------
+def:extending one interface from another interface
+------ point ------------
+	->base interface methods are inherited to sub interace
+	->if any class implemented the sun interface then the class should provide methode implementation for both interface method
+
+syn:
+interface subinterfacename extends baseinterfacename
+{
+//methods
+}
+eg:
+
+interface sample{
+    int a=10;
+    void display();
+    }
+    interface example extends sample{
+        int b=20;
+        void show();
+    }
+
+eg:
+----------- without base interface methode implementation -------------
+interface sample{
+    int a=10;
+    void display();
+    }
+    interface example extends sample{
+        int b=20;
+        void show();
+    }
+    class interfaceimpl implements example{
+   public void show(){
+       System.out.println("b="+b); 
+    }
+    }
+
+class HelloWorld {
+    public static void main(String[] args) {
+//interfaceimpl s = new interfaceimpl();
+sample s = new interfaceimpl();
+s.display();
+
+    }                                         
+}
+o/p:
+ERROR!
+javac /tmp/OKkWVGsfYU/HelloWorld.java
+/tmp/OKkWVGsfYU/HelloWorld.java:9: error: interfaceimpl is not abstract and does not override abstract method display() in sample
+    class interfaceimpl implements example{
+    ^
+1 error
+
+----------- with base interface methode implementation -------------
+eg:
+interface sample{
+    int a=10;
+    void display();
+    }
+    interface example extends sample{
+        int b=20;
+        void show();
+    }
+    class interfaceimpl implements example{
+          public void display(){
+       System.out.println("a="+a); 
+    }
+   public void show(){
+       System.out.println("b="+b); 
+    }
+    }
+
+class HelloWorld {
+    public static void main(String[] args) {
+
+interfaceimpl s = new interfaceimpl(); = new interfaceimpl();
+s.display();
+s.show();
+
+    }                                         
+} 
+o/p:
+a=10
+b=20
+
+-------------- interfce for multiple inheritance-------------------
+	->when use interface  there will not be two definition for same method name in both base and sub interface
+eg:
+interface sample{
+    int a=10;
+    void display();
+    }
+    interface example {
+        int b=20;
+        void display();
+    }
+    class interfaceimpl implements sample,example{
+          public void display(){
+       System.out.println("a="+a); 
+       System.out.println("b="+b);
+    }
+    }
+
+class HelloWorld {
+    public static void main(String[] args) {
+interfaceimpl s = new interfaceimpl();
+s.display();
+
+    }                                         
+}
+o/p:
+a=10
+b=20
+------------------------------------------------------------------------------------------
+interface sample{
+    int a=10;
+    void display();
+    }
+    interface example {
+        int b=20;
+        void display(int a);
+    }
+    class interfaceimpl implements sample,example{
+          public void display(int n){
+       System.out.println("a="+a); 
+       System.out.println("b="+b);
+       System.out.println("a+b+n="+(a+b+n));
+    }
+     public void display(){
+     System.out.println("a="+a); 
+       System.out.println("b="+b);
+       System.out.println("a+b="+(a+b));
+    }
+
+    }
+
+class HelloWorld {
+    public static void main(String[] args) {
+interfaceimpl s = new interfaceimpl();
+s.display(1);
+s.display();
+    }                                         
+}
+
+-------------- task --------------------
+Let create a Bank interface with openingbalance(double) fields and method getBalance(),withDraw(),deposit(),getInterestRate()
+implements this interface in SBI and ICICI bank class having fields amount(double),balance (double) and should override all the methods of bank interface
+when one user registered(one object created )then inside its constructor of both SBI and ICICI bank classes it assigns balance variable to use openingbalance.
+provie definition for withdraw() and deposite() based on the amount entered and balance variable should get updated
+provide definition for getInterest() so that for available balance what is the interest and updated balance 
+note: 
+SBI -> interest -> 5%
+ICICI ->interest -> 10%
+
+ans:
+import java.util.Scanner;
+interface Bank{
+    double openingbalance=1000;
+    void getBalance();
+    void getInterest();
+    void amountDeposite();
+    void amountWithdraw();
+}
+class SBI implements Bank{
+    double balance,amount;
+    Scanner sc = new Scanner(System.in);
+    SBI(){
+        System.out.println("Welcome to SBI!...");
+        balance=openingbalance;
+         System.out.println("You are Successfully Registered with us!...");
+    }
+   public void getBalance(){
+        System.out.println("Your Available Balance="+balance);
+            }
+          public  void getInterest(){
+                // System.out.println("Your Available Balance="+balance);
+                balance=(balance*0.05)+balance;
+                 System.out.println("After interest added Your Available Balance="+balance);
+            }
+        public    void amountDeposite(){
+            //System.out.println("Your Available Balance="+balance);
+                System.out.println("Enter the Amount to Deposite:");
+                amount=sc.nextInt();
+                balance=balance+amount;
+                System.out.println("After Deposite Your Available Balance="+balance);
+            }
+                       public  void amountWithdraw(){
+                 System.out.println("Enter the Amount to withdraw:");
+                amount=sc.nextInt();
+                balance=balance-amount;
+                System.out.println("After Withdraw Your Available Balance="+balance);
+             }
+}
+
+class ICICI implements Bank{
+    double balance,amount;
+    Scanner sc = new Scanner(System.in);
+    ICICI(){
+ System.out.println("Welcome to ICICI!...");
+        balance=openingbalance;
+         System.out.println("You are Successfully Registered with us!...");
+    }
+   public void getBalance(){
+        System.out.println("Your Available Balance="+balance);
+            }
+          public  void getInterest(){
+                // System.out.println("Your Available Balance="+balance);
+                balance=(balance*0.1)+balance;
+                 System.out.println("After interest added Your Available Balance="+balance);
+            }
+        public    void amountDeposite(){
+            //System.out.println("Your Available Balance="+balance);
+                System.out.println("Enter the Amount to Deposite:");
+                amount=sc.nextInt();
+                balance=balance+amount;
+                System.out.println("After Deposite Your Available Balance="+balance);
+            }
+                       public  void amountWithdraw(){
+                 System.out.println("Enter the Amount to withdraw:");
+                amount=sc.nextInt();
+                balance=balance-amount;
+                System.out.println("After Withdraw Your Available Balance="+balance);
+             }
+}
+class bankimpl{
+    public static void main(String a[]){
+        SBI s = new SBI();
+        s.getBalance();
+        s.amountDeposite();
+    s.getInterest();
+    s.amountWithdraw();
+        
+    }
+}
+
+o/p:
+
+Your Available Balance=1000.0
+Enter the Amount to Deposite:
+19000
+After Deposite Your Available Balance=20000.0
+After interest added Your Available Balance=21000.0
+Enter the Amount to withdraw:
+1000
+After Withdraw Your Available Balance=20000.0
